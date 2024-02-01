@@ -34,7 +34,7 @@ jobs:
         if: steps.check-cache.outputs.cache-hit != 'true'
         run: |
           curl -L ${{ secrets.USER_DATA_URL }} -o user_data.zip
-          unzip -o user_data.zip -d . -q
+          unzip -o user_data.zip -d .
           rm user_data.zip
     
       - name: Check project cache
