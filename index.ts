@@ -10,13 +10,13 @@ const STOP_EXECUTION_XPATH = `//span[text()="Stop execution"]`;
 const URL = process.env.DEEPNOTE_URL!;
 
 async function main() {
+    const browser = await puppeteer
+        .use(StealthPlugin())
+        .launch({
+            headless: "new",
+            userDataDir: "./user_datas",
+        });
     try {
-        const browser = await puppeteer
-            .use(StealthPlugin())
-            .launch({
-                headless: "new",
-                userDataDir: "./user_data",
-            });
 
         const page = await browser.newPage();
         await page.goto(URL);
@@ -39,7 +39,8 @@ async function main() {
 
         await browser.close();
     } catch (error:any) {
-        console.log("Error", error.message);
+        console.error("Error", error.message);
+        await browser.close();
     }
 }
 

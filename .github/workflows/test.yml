@@ -17,19 +17,25 @@ jobs:
         uses: actions/setup-node@v3
         with:
           cache: 'npm'
+
+      - name: User data cache hash
+        id: check-cache-hash
+        run: |
+          echo "hash=$(echo -n ${{ secrets.USER_DATA_URL }} | md5sum | awk '{print $1}')" >> $GITHUB_OUTPUT
     
       - name: Check user data cache
         id: check-cache
         uses: actions/cache@v4
         with:
           path: user_data
-          key: ${{ runner.os }}-deepnote-${{ hashFiles(secrets.USER_DATA_URL) }}
+          key: ${{ runner.os }}-deepnote-${{ steps.check-cache-hash.outputs.hash }}
 
       - name: Fetch user data
         if: steps.check-cache.outputs.cache-hit != 'true'
         run: |
           curl -L ${{ secrets.USER_DATA_URL }} -o user_data.zip
-          unzip -o user_data.zip -d user_data
+          unzip -o user_data.zip -d . -q
+          rm user_data.zip
     
       - name: Check project cache
         uses: actions/cache@v4
