@@ -42,5 +42,7 @@ jobs:
           npm install
     
       - name: Run tests
+        env:
+            DEEPNOTE_URL: ${{ secrets.DEEPNOTE_URL }}
         run: |
           npm start
