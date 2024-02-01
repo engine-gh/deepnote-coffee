@@ -31,7 +31,7 @@ async function main() {
     } else {
         await ele.click();
         await page.waitForXPath(STOP_EXECUTION_XPATH);
-        console.log("Stated notebook");
+        console.log("Started notebook successfully");
     }
 
     await browser.close();
