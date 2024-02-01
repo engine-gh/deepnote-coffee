@@ -51,5 +51,11 @@ jobs:
         env:
             DEEPNOTE_URL: ${{ secrets.DEEPNOTE_URL }}
         run: |
-          ls -a
           npm start
+      
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screenshot
+          path: screenshot.png

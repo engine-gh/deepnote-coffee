@@ -18,6 +18,7 @@ async function main() {
     const page = await browser.newPage();
     await page.goto(URL);
     await page.waitForNetworkIdle();
+    await page.screenshot({ path: "screenshot.png" });
     await page.waitForXPath(STATUS_INDICATOR_XPATH);
 
     const ele = await page.$(RUN_NOTEBOOK_SELECTOR);
