@@ -1,0 +1,46 @@
+name: Deepnote Coffee
+
+on:
+    push:
+    workflow_dispatch:
+
+jobs:
+  check-awake:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+    
+      - name: Check user data cache
+        id: check-cache
+        uses: actions/cache@v4
+        with:
+          path: user_data
+          key: ${{ runner.os }}-deepnote-${{ hashFiles(secrets.USER_DATA_URL) }}
+
+      - name: Fetch user data
+        if: steps.check-cache.outputs.cache-hit != 'true'
+        run: |
+          curl -L ${{ secrets.USER_DATA_URL }} -o user_data.zip
+          unzip -o user_data.zip -d user_data
+    
+      - name: Check project cache
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: ${{ runner.os }}-cache
+
+      - name: Install dependencies
+        run: |
+          npm install
+    
+      - name: Run tests
+        run: |
+          npm start

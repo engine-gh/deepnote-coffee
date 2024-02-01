@@ -1,0 +1,18 @@
+{
+  "name": "deepnote-coffee",
+  "version": "1.0.0",
+  "description": "deepnote-coffee",
+  "main": "index.ts",
+  "scripts": {
+    "test": "npx ts-node index.ts",
+    "start": "npx ts-node index.ts"
+  },
+  "author": "viperadnan-git",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.1",
+    "puppeteer-extra": "^3.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "ts-node": "^10.9.2"
+  }
+}
