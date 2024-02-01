@@ -41,7 +41,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .cache
-          key: ${{ runner.os }}-cache
+          key: ${{ runner.os }}-puppeteer-cache
 
       - name: Install dependencies
         run: |
@@ -51,4 +51,5 @@ jobs:
         env:
             DEEPNOTE_URL: ${{ secrets.DEEPNOTE_URL }}
         run: |
+          ls -a
           npm start
