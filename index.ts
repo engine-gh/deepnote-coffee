@@ -31,7 +31,7 @@ async function main() {
     } else {
         await ele.click();
         await page.waitForXPath(STOP_EXECUTION_XPATH, { timeout: 300000 });
-        console.log("Stated notebook");
+        console.log("Stated notebook successfully");
     }
 
     await browser.close();
